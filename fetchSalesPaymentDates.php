@@ -2,6 +2,7 @@
 
 require('ManageCSV.php');
 require('PaymentDate.php');
+const MONTHS = 12;
 
 if ($argc > 1) {
     $filename = $argv[1];
@@ -12,4 +13,4 @@ if ($argc > 1) {
 
 $manageCSV = new CSV\manageCSV($filename, 'w'); 
 $paymentDate = new FindDate\PaymentDate($manageCSV);
-$paymentDate->findPaymentDates($filename);
+$paymentDate->findPaymentDates(MONTHS);
