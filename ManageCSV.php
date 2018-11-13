@@ -1,5 +1,7 @@
 <?php 
 
+namespace CSV;
+
 class ManageCSV {
 
     private $file; 
@@ -7,10 +9,7 @@ class ManageCSV {
 
     public function __construct($filename, $mode = 'r')
     {
-        if(!is_string($filename)) {
-            throw new InvalidArgumentException('Parameter $file must be a string. Provided type: ' . gettype($filename));
-        }
-        $this->file = $filename;
+        $this->file = $filename . '.csv';
         $this->handle = fopen($this->file, $mode);
         return $this->file;
     }
@@ -30,7 +29,6 @@ class ManageCSV {
     public function write($data)
     {
         foreach ($data as $line) { 
-            // generate csv lines from the inner arrays
             fputcsv($this->handle, $line); 
         }
         rewind($this->handle);
