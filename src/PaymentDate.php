@@ -2,7 +2,7 @@
 
 namespace FindDate;
 
-use CSV\ManageCSV;
+use FindDate\ManageCSV;
 
 /**
  * PaymentDate
@@ -40,7 +40,26 @@ class PaymentDate {
      * exports file
      * @param integer $months
      */
-    public function findPaymentDates($months = 12)
+    public function exportPaymentDates($months = 12)
+    {
+        $this->calculatePaymentDates($months);
+        if(!$this->csv->write($this->data)) {
+            return 'Error in writing file';
+        }
+        if(!$this->csv->export()) {
+            return 'Error in downloading file';
+        }
+        if(!$this->csv->close()) {
+            return 'Error in closing file';
+        }
+        return true;
+    }
+
+    /**
+    * calculates salary and bonus payment dates 
+    * @param integer $months
+    */
+    private function calculatePaymentDates($months)
     {
         for($i = 0; $i < $months; $i++) {
             $add = $i + 1;
@@ -50,10 +69,6 @@ class PaymentDate {
             $month = date("M-Y", strtotime($next));
             $this->data[] = [$month, $salaryDate, $bonusDate];
         }
-
-        $this->csv->write($this->data);
-        $this->csv->export();
-        $this->csv->close();
     }
 
     /**

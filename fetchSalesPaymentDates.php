@@ -1,21 +1,30 @@
 <?php
 
-require('ManageCSV.php');
-require('PaymentDate.php');
+require "vendor/autoload.php";
+
+use FindDate\ManageCSV;
+use FindDate\PaymentDate;
+
 const MONTHS = 12;
 
-if ($argc > 1) {
+if($argc > 1) {
     $filename = $argv[1];
     if(!preg_match('/^([-\.\w]+)$/', $filename)) {
-        echo 'Provided filename has illegal characters.';
+        echo 'Provided filename has illegal characters.' . "\n";
         exit();
     }
 } else {
     echo "Please provide the csv file name";
     exit();
 }
-
-$manageCSV = new CSV\manageCSV($filename, 'w'); 
-$paymentDate = new FindDate\PaymentDate($manageCSV);
-$paymentDate->findPaymentDates(MONTHS);
-echo "$filename.csv file has been successfully downloaded at ". getcwd() ."\n";
+try{
+    $manageCSV = new ManageCSV($filename, 'w'); 
+    $paymentDate = new PaymentDate($manageCSV);
+    if($paymentDate->exportPaymentDates(MONTHS)) {
+        echo "$filename.csv file has been successfully downloaded at " . getcwd() ."\n";
+    } else {
+        echo "Error while downloading $filename.csv " . "\n";
+    }
+} catch(Exception $e) {
+    echo "Error while processing $filename.csv : " . $e->getMessage() . "\n";
+}

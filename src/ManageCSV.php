@@ -1,6 +1,6 @@
 <?php 
 
-namespace CSV;
+namespace FindDate;
 
 /**
  * ManageCSV
@@ -30,7 +30,10 @@ class ManageCSV {
     public function __construct($filename, $mode = 'r')
     {
         $this->file = $filename . '.csv';
-        $this->handle = fopen($this->file, $mode);
+        $this->handle = @fopen($this->file, $mode);
+        if(!$this->handle) {
+            throw new \Exception('File open failed.');
+        }
     }
 
     /**
@@ -48,7 +51,7 @@ class ManageCSV {
      */
     public function close()
     {
-        fclose($this->handle); 
+       return fclose($this->handle); 
     }
 
     /**
@@ -57,10 +60,15 @@ class ManageCSV {
      */
     public function write($data)
     {
-        foreach ($data as $line) {
-            fputcsv($this->handle, $line); 
+        try {
+            foreach ($data as $line) {
+                fputcsv($this->handle, $line); 
+            }
+            rewind($this->handle);
+        } catch(Exception $e) {
+            return false;
         }
-        rewind($this->handle);
+        return true;
     }
 
     /**
@@ -68,6 +76,6 @@ class ManageCSV {
      */
     public function export()
     {
-        fpassthru($this->handle);
+        return fpassthru($this->handle);
     }
 }
