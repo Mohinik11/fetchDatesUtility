@@ -14,22 +14,22 @@ PHP 5 >= 5.3.0 / PHP 7
 
 1. Extract utility.zip folder or clone repository https://github.com/Mohinik11/utility.git
 2. open terminal, and run following commands
-3. cd {location to utility}\utility
-4. composer install
-5. composer dump-autoload -o
+3. `cd {location to utility}\utility`
+4. `composer install`
+5. `composer dump-autoload -o`
 
 
 ## Running the application
 
 1. open terminal, and run following commands
-2. cd {location to utility}\utility
-3. php fetchSalesPaymentDates.php filename
+2. `cd {location to utility}\utility`
+3. `php fetchSalesPaymentDates.php filename`
 4. open folder {location to utility}\utility, and open filename.csv file
 
 
 ## Running tests
 
 1. open terminal, and run following commands
-2. cd {location to utility}\utility
-3. vendor/bin/phpunit tests
+2. `cd {location to utility}\utility`
+3. `vendor/bin/phpunit tests`
 
