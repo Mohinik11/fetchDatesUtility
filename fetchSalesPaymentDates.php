@@ -21,10 +21,10 @@ try{
     $manageCSV = new ManageCSV($filename, 'w'); 
     $paymentDate = new PaymentDate($manageCSV);
     if($paymentDate->exportPaymentDates(MONTHS)) {
-        echo "$filename.csv file has been successfully downloaded at " . getcwd() ."\n";
+        echo "$filename.csv file has been created successfully at " . getcwd() ."\n";
     } else {
         echo "Error while downloading $filename.csv " . "\n";
     }
 } catch(Exception $e) {
-    echo "Error while processing $filename.csv : " . $e->getMessage() . "\n";
+    echo "Error while creating $filename.csv : " . $e->getMessage() . "\n";
 }

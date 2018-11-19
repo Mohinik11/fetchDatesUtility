@@ -66,7 +66,7 @@ class PaymentDate {
             $next = date("Y-m-d", strtotime("+ $add month"));
             $salaryDate = $this->findSalaryDay(date("Y-m-t", strtotime($next)));
             $bonusDate = $this->findBonusDay(date("Y-m-15", strtotime("+1 month", strtotime($next))));
-            $month = date("M-Y", strtotime($next));
+            $month = date("M, Y", strtotime($next));
             $this->data[] = [$month, $salaryDate, $bonusDate];
         }
     }
