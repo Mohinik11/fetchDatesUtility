@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use FindDate\PaymentDate;
+use FindDate\ExportDates;
 use FindDate\ManageCSV;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamFile;

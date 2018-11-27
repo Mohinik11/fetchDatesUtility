@@ -3,7 +3,7 @@
 require "vendor/autoload.php";
 
 use FindDate\ManageCSV;
-use FindDate\PaymentDate;
+use FindDate\ExportDates;
 
 const MONTHS = 12;
 
@@ -19,7 +19,7 @@ if($argc > 1) {
 }
 try{
     $manageCSV = new ManageCSV($filename, 'w'); 
-    $paymentDate = new PaymentDate($manageCSV);
+    $paymentDate = new ExportDates($manageCSV);
     if($paymentDate->exportPaymentDates(MONTHS)) {
         echo "$filename.csv file has been created successfully at " . getcwd() ."\n";
     } else {
